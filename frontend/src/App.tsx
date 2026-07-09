@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { useState } from 'react'
 import Home from './components/Home'
 import Host from './components/Host'
@@ -46,7 +46,7 @@ function App() {
 
   return (
     <AuthProvider>
-      <Router basename="/quizmaster-app">
+      <Router>
         <div className="relative">
           <AppRoutes />
           
