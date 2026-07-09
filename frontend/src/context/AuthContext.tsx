@@ -5,6 +5,7 @@ type User = {
   username: string;
   email: string;
   role: 'HOST' | 'STUDENT';
+  totalScore?: number;
 };
 
 type AuthContextType = {

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
 import { socket } from '../socket'
 import { sound } from '../utils/sound'
-import { BarChart3, Clock, Flame, Zap, Snowflake, EyeOff } from 'lucide-react'
+import { Clock, Flame, Zap, Snowflake, EyeOff } from 'lucide-react'
 import confetti from 'canvas-confetti'
 
 
@@ -37,7 +37,6 @@ export default function GameRoom() {
   
   // New Game Modes
   const [bossHealth, setBossHealth] = useState(10000);
-  const [teamScores, setTeamScores] = useState({ red: 0, blue: 0 });
   const [myTeam, setMyTeam] = useState<'red'|'blue'|null>(null);
   const [typedAnswer, setTypedAnswer] = useState('');
 
