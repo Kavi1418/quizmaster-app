@@ -1,3 +1,4 @@
+import { API_URL } from "../config";
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Play, Copy, Users, Plus, CheckCircle2, Save, Edit3, Trash2, ArrowLeft, BarChart2, X, Sparkles, Download } from 'lucide-react'
@@ -58,7 +59,7 @@ export default function Host() {
 
   useEffect(() => {
     if (step === 0 && token) {
-      fetch('http://localhost:3001/api/quizzes', {
+      fetch(`${API_URL}/api/quizzes`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       .then(res => res.json())
@@ -97,8 +98,8 @@ export default function Host() {
     sound.playClick();
     setIsSaving(true);
     const url = editingQuizId 
-      ? `http://localhost:3001/api/quizzes/${editingQuizId}` 
-      : 'http://localhost:3001/api/quizzes';
+      ? `${API_URL}/api/quizzes/${editingQuizId}` 
+      : `${API_URL}/api/quizzes`;
     const method = editingQuizId ? 'PUT' : 'POST';
 
     try {
@@ -171,7 +172,7 @@ export default function Host() {
     setShowResultsQuizId(quiz.id);
     setIsLoadingResults(true);
     try {
-      const res = await fetch(`http://localhost:3001/api/quizzes/${quiz.id}/results`, {
+      const res = await fetch(`${API_URL}/api/quizzes/${quiz.id}/results`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await res.json();
@@ -208,7 +209,7 @@ export default function Host() {
     if (!aiTopic) return;
     setIsGenerating(true);
     try {
-      const res = await fetch('http://localhost:3001/api/ai/generate', {
+      const res = await fetch(`${API_URL}/api/ai/generate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ topic: aiTopic })

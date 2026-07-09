@@ -1,3 +1,4 @@
+import { API_URL } from "../config";
 import { useEffect, useState } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
 import { socket } from '../socket'
@@ -136,7 +137,7 @@ export default function GameRoom() {
 
   useEffect(() => {
     if (gameState === 'finished' && !isHost && quizId) {
-      fetch(`http://localhost:3001/api/quizzes/${quizId}/results`, {
+      fetch(`${API_URL}/api/quizzes/${quizId}/results`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ playerName: username, score })

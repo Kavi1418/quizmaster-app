@@ -1,3 +1,4 @@
+import { API_URL } from "../config";
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Brain, Play, LogOut, User as UserIcon, Store, ShoppingBag } from 'lucide-react'
@@ -66,7 +67,7 @@ export default function Home() {
     sound.playClick();
     setShowLeaderboard(true);
     try {
-      const res = await fetch('http://localhost:3001/api/leaderboard');
+      const res = await fetch(`${API_URL}/api/leaderboard`);
       const data = await res.json();
       if (data.success) {
         setLeaderboardData(data.leaderboard);
@@ -81,7 +82,7 @@ export default function Home() {
     setShowShop(true);
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:3001/api/shop', {
+      const res = await fetch(`${API_URL}/api/shop`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await res.json();
@@ -98,7 +99,7 @@ export default function Home() {
     if (shopData.coins < cost) return alert("Not enough coins!");
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:3001/api/shop/buy', {
+      const res = await fetch(`${API_URL}/api/shop/buy`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ itemId, cost })
