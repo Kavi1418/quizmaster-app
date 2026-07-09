@@ -1,0 +1,56 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  HOST
+  STUDENT
+}
+
+model User {
+  id            String   @id @default(uuid())
+  username      String   @unique
+  email         String?  @unique
+  password      String?
+  role          Role     @default(STUDENT)
+  totalScore    Int      @default(0)
+  coins         Int      @default(0)
+  badges        String[]
+  unlockedItems String[]
+  createdAt     DateTime @default(now())
+}
+
+model Quiz {
+  id        String       @id @default(uuid())
+  title     String
+  hostId    String
+  questions Question[]
+  results   QuizResult[]
+  createdAt DateTime     @default(now())
+}
+
+model Question {
+  id            String   @id @default(uuid())
+  quizId        String
+  quiz          Quiz     @relation(fields: [quizId], references: [id])
+  text          String
+  imageUrl      String?  // Optional image URL for the question
+  options       String[] // Stored as a JSON array of strings
+  correctOption Int      // Index of the correct option
+  type          String   @default("MULTIPLE_CHOICE") // MULTIPLE_CHOICE, TRUE_FALSE, TYPE_ANSWER
+  correctText   String?  // For TYPE_ANSWER
+}
+
+model QuizResult {
+  id         String   @id @default(uuid())
+  quizId     String
+  quiz       Quiz     @relation(fields: [quizId], references: [id])
+  playerName String
+  score      Int
+  createdAt  DateTime @default(now())
+}
