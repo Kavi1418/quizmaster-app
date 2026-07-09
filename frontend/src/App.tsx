@@ -46,7 +46,7 @@ function App() {
 
   return (
     <AuthProvider>
-      <Router>
+      <Router basename="/quizmaster-app">
         <div className="relative">
           <AppRoutes />
           
